@@ -191,86 +191,55 @@ window.onload = () => {
 }
 
 interface Input {
-  isRight(): boolean;
-  isLeft(): boolean;
-  isUp(): boolean;
-  isDown(): boolean;
-
   handle(): void;
 }
 class Right implements Input {
-  isDown(): boolean {return true;}
-  isLeft(): boolean {return false;}
-  isRight(): boolean {return false;}
-  isUp(): boolean {return false;}
-
-  handleInput() {
-    if (this.isRight())
-      moveHorizontal(-1);
-    else if (this.isLeft())
-      moveHorizontal(1);
-    else if (this.isUp())
-      moveVertical(-1);
-    else if (this.isDown())
-      moveVertical(1);
+  // handleInput() {
+  //   if (false)
+  //     moveHorizontal(-1);
+  //   else if (false)
+  //     moveHorizontal(1);
+  //   else if (false)
+  //     moveVertical(-1);
+  //   else if (true)
+  //     moveVertical(1);
+  // }
+  handle() {
+    moveHorizontal(1);
   }
 
 
 }
+
 class Left implements Input {
-  isDown(): boolean {
-    return true;
+  handle() {
+    moveVertical(1);
   }
-
-  isLeft(): boolean {
-    return false;
-  }
-
-  isRight(): boolean {
-    return false;
-  }
-
-  isUp(): boolean {
-    return false;
-  }
-
 }
+
 class Up implements Input {
-  isDown(): boolean {
-    return true;
+  handle() {
+    moveVertical(1);
   }
-
-  isLeft(): boolean {
-    return false;
-  }
-
-  isRight(): boolean {
-    return false;
-  }
-
-  isUp(): boolean {
-    return false;
-  }
-
 }
-class Down implements Input {
-  isDown(): boolean {
-    return true;
-  }
-
-  isLeft(): boolean {
-    return false;
-  }
-
-  isRight(): boolean {
-    return false;
-  }
-
-  isUp(): boolean {
-    return false;
-  }
-
-}
+// class Down implements Input {
+//   isDown(): boolean {
+//     return true;
+//   }
+//
+//   isLeft(): boolean {
+//     return false;
+//   }
+//
+//   isRight(): boolean {
+//     return false;
+//   }
+//
+//   isUp(): boolean {
+//     return false;
+//   }
+//
+// }
 
 const LEFT_KEY = "ArrowLeft";
 const UP_KEY = "ArrowUp";
