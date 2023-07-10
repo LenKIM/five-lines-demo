@@ -14,9 +14,10 @@ enum Tile {
   KEY2, LOCK2
 }
 
-enum Input {
+enum RawInput {
   UP, DOWN, LEFT, RIGHT
 }
+
 
 let playerx = 1;
 let playery = 1;
@@ -92,14 +93,14 @@ function handleInputs() {
     handleInput(current);
   }
 }
-function handleInput(current: Input | Input.UP | Input.DOWN | Input.RIGHT) {
-  if (current === Input.LEFT)
+function handleInput(current: Input) {
+  if (current.isRight())
     moveHorizontal(-1);
-  else if (current === Input.RIGHT)
+  else if (current.isLeft())
     moveHorizontal(1);
-  else if (current === Input.UP)
+  else if (current.isUp())
     moveVertical(-1);
-  else if (current === Input.DOWN)
+  else if (current.isDown())
     moveVertical(1);
 }
 
@@ -189,14 +190,93 @@ window.onload = () => {
   gameLoop();
 }
 
+interface Input {
+  isRight(): boolean;
+  isLeft(): boolean;
+  isUp(): boolean;
+  isDown(): boolean;
+}
+class Right implements Input {
+  isDown(): boolean {
+    return true;
+  }
+
+  isLeft(): boolean {
+    return false;
+  }
+
+  isRight(): boolean {
+    return false;
+  }
+
+  isUp(): boolean {
+    return false;
+  }
+
+}
+class Left implements Input {
+  isDown(): boolean {
+    return true;
+  }
+
+  isLeft(): boolean {
+    return false;
+  }
+
+  isRight(): boolean {
+    return false;
+  }
+
+  isUp(): boolean {
+    return false;
+  }
+
+}
+class Up implements Input {
+  isDown(): boolean {
+    return true;
+  }
+
+  isLeft(): boolean {
+    return false;
+  }
+
+  isRight(): boolean {
+    return false;
+  }
+
+  isUp(): boolean {
+    return false;
+  }
+
+}
+class Down implements Input {
+  isDown(): boolean {
+    return true;
+  }
+
+  isLeft(): boolean {
+    return false;
+  }
+
+  isRight(): boolean {
+    return false;
+  }
+
+  isUp(): boolean {
+    return false;
+  }
+
+}
+
 const LEFT_KEY = "ArrowLeft";
 const UP_KEY = "ArrowUp";
 const RIGHT_KEY = "ArrowRight";
 const DOWN_KEY = "ArrowDown";
 window.addEventListener("keydown", e => {
-  if (e.key === LEFT_KEY || e.key === "a") inputs.push(Input.LEFT);
-  else if (e.key === UP_KEY || e.key === "w") inputs.push(Input.UP);
-  else if (e.key === RIGHT_KEY || e.key === "d") inputs.push(Input.RIGHT);
-  else if (e.key === DOWN_KEY || e.key === "s") inputs.push(Input.DOWN);
+  if (e.key === LEFT_KEY || e.key === "a") inputs.push(RawInput.LEFT);
+  else if (e.key === UP_KEY || e.key === "w") inputs.push(RawInput.UP);
+  else if (e.key === RIGHT_KEY || e.key === "d") inputs.push(RawInput.RIGHT);
+  else if (e.key === DOWN_KEY || e.key === "s") inputs.push(RawInput.DOWN);
 });
 
