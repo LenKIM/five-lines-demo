@@ -18,7 +18,7 @@ enum RawTile {
   LOCK2
 }
 
-interface Tile2 {
+interface Tile {
   isFlux(): boolean;
   isUnbreakable(): boolean;
   isStone(): boolean;
@@ -31,9 +31,15 @@ interface Tile2 {
   isLock1():boolean;
   isKey2():boolean;
   isLock2():boolean;
+
+  color(g: CanvasRenderingContext2D): void
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void;
 }
 
-class Flux implements Tile2 {
+class Flux implements Tile {
+  color(g: CanvasRenderingContext2D): void {
+
+  }
   isFlux(): boolean {
     return true;
   }
@@ -81,8 +87,11 @@ class Flux implements Tile2 {
   isUnbreakable(): boolean {
     return false;
   }
+
+  draw(g: CanvasRenderingContext2D, x: number, y: number) {
+  }
 }
-class Unbreakable implements Tile2 {
+class Unbreakable implements Tile {
   isFlux(): boolean {
     return true;
   }
@@ -130,8 +139,16 @@ class Unbreakable implements Tile2 {
   isUnbreakable(): boolean {
     return false;
   }
+
+  color(g: CanvasRenderingContext2D): void {
+  }
+
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+  }
 }
-class Stone implements Tile2 {
+class Stone implements Tile {
+  color(g: CanvasRenderingContext2D): void {
+  }
   isFlux(): boolean {
     return true;
   }
@@ -179,9 +196,12 @@ class Stone implements Tile2 {
   isUnbreakable(): boolean {
     return false;
   }
+
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+  }
 }
 
-class Player implements Tile2 {
+class Player implements Tile {
   isFlux(): boolean {
     return true;
   }
@@ -229,8 +249,16 @@ class Player implements Tile2 {
   isUnbreakable(): boolean {
     return false;
   }
+
+  color(g: CanvasRenderingContext2D): void {
+  }
+
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+  }
 }
-class Air implements Tile2 {
+class Air implements Tile {
+  color(g: CanvasRenderingContext2D): void {
+  }
   isFlux(): boolean {
     return true;
   }
@@ -278,8 +306,13 @@ class Air implements Tile2 {
   isUnbreakable(): boolean {
     return false;
   }
+
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+  }
+
+
 }
-class Falling_stone implements Tile2 {
+class Falling_stone implements Tile {
   isFlux(): boolean {
     return true;
   }
@@ -327,8 +360,16 @@ class Falling_stone implements Tile2 {
   isUnbreakable(): boolean {
     return false;
   }
+
+  color(g: CanvasRenderingContext2D): void {
+  }
+
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+  }
 }
-class Box implements Tile2 {
+class Box implements Tile {
+  color(g: CanvasRenderingContext2D): void {
+  }
   isFlux(): boolean {
     return true;
   }
@@ -376,8 +417,11 @@ class Box implements Tile2 {
   isUnbreakable(): boolean {
     return false;
   }
+
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+  }
 }
-class Falling_box implements Tile2 {
+class Falling_box implements Tile {
   isFlux(): boolean {
     return true;
   }
@@ -425,8 +469,14 @@ class Falling_box implements Tile2 {
   isUnbreakable(): boolean {
     return false;
   }
+
+  color(g: CanvasRenderingContext2D): void {
+  }
+
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+  }
 }
-class Key1 implements Tile2 {
+class Key1 implements Tile {
   isFlux(): boolean {
     return true;
   }
@@ -474,8 +524,14 @@ class Key1 implements Tile2 {
   isUnbreakable(): boolean {
     return false;
   }
+
+  color(g: CanvasRenderingContext2D): void {
+  }
+
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+  }
 }
-class Lock1 implements Tile2 {
+class Lock1 implements Tile {
   isFlux(): boolean {
     return true;
   }
@@ -523,8 +579,14 @@ class Lock1 implements Tile2 {
   isUnbreakable(): boolean {
     return false;
   }
+
+  color(g: CanvasRenderingContext2D): void {
+  }
+
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+  }
 }
-class Key2 implements Tile2 {
+class Key2 implements Tile {
   isFlux(): boolean {
     return true;
   }
@@ -572,8 +634,14 @@ class Key2 implements Tile2 {
   isUnbreakable(): boolean {
     return false;
   }
+
+  color(g: CanvasRenderingContext2D): void {
+  }
+
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+  }
 }
-class Lock2 implements Tile2 {
+class Lock2 implements Tile {
   isFlux(): boolean {
     return true;
   }
@@ -620,6 +688,12 @@ class Lock2 implements Tile2 {
 
   isUnbreakable(): boolean {
     return false;
+  }
+
+  color(g: CanvasRenderingContext2D): void {
+  }
+
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
   }
 }
 
@@ -646,6 +720,13 @@ function assertExhausted(x: never): never {
 
 function transformTile(tile: RawTile) {
   switch (tile) {
+    case RawTile.FLUX: return new Flux();
+    case RawTile.BOX: return  new Box();
+    case RawTile.FALLING_BOX: return new Falling_box();
+    case RawTile.KEY1: return new Key1();
+    case RawTile.LOCK1: return new Lock1();
+    case RawTile.KEY2: return new Key2();
+    case RawTile.LOCK2: return new Lock2();
     case RawTile.AIR: return new Air();
     case RawTile.PLAYER: return new Player();
     case RawTile.UNBREAKABLE: return new Unbreakable();
@@ -656,7 +737,7 @@ function transformTile(tile: RawTile) {
   }
 }
 
-let map: Tile2[][];
+let map: Tile[][];
 function transformMap() {
   map = new Array(rawMap.length);
   for (let y = 0; y < rawMap.length; y++) {
@@ -669,7 +750,7 @@ function transformMap() {
 
 let inputs: Input[] = [];
 
-function remove(tile: Tile2) {
+function remove(tile: Tile) {
   for (let y = 0; y < map.length; y++) {
     for (let x = 0; x < map[y].length; x++) {
       if (map[y][x] === tile) {
@@ -787,31 +868,43 @@ function updateTile(y: number, x: number) {
   }
 }
 
-
+function drawTile(g: CanvasRenderingContext2D,
+                  y: number, x: number) {
+  map[y][x].color(g);
+  if (!map[y][x].isAir() && !map[y][x].isPlayer()) {
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
+}
 
 function drawMap(g: CanvasRenderingContext2D) {
   for (let y = 0; y < map.length; y++) {
     for (let x = 0; x < map[y].length; x++) {
-      colorOfTile(y, x, g);
-      if (map[y][x] !== new Air() && map[y][x] !== new Player())
-        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+      drawTile(g, y, x);
     }
   }
 }
+interface Tile {
+  // ...
+  color(g: CanvasRenderingContext2D): void;
+}
+
 
 function colorOfTile(y: number, x: number, g: CanvasRenderingContext2D) {
-  if (map[y][x].isFlux())
-    g.fillStyle = "#ccffcc";
-  else if (map[y][x].isUnbreakable())
-    g.fillStyle = "#999999";
-  else if (map[y][x].isStone() || map[y][x].isFalling_stone())
-    g.fillStyle = "#0000cc";
-  else if (map[y][x].isBox() || map[y][x].isFalling_box())
-    g.fillStyle = "#8b4513";
-  else if (map[y][x].isKey1() || map[y][x].isLock1())
-    g.fillStyle = "#ffcc00";
-  else if (map[y][x].isKey2() || map[y][x].isLock2())
-    g.fillStyle = "#00ccff";
+
+  map[y][x].color(g);
+
+  // if (map[y][x].isFlux())
+  //   g.fillStyle = "#ccffcc";
+  // else if (map[y][x].isUnbreakable())
+  //   g.fillStyle = "#999999";
+  // else if (map[y][x].isStone() || map[y][x].isFalling_stone())
+  //   g.fillStyle = "#0000cc";
+  // else if (map[y][x].isBox() || map[y][x].isFalling_box())
+  //   g.fillStyle = "#8b4513";
+  // else if (map[y][x].isKey1() || map[y][x].isLock1())
+  //   g.fillStyle = "#ffcc00";
+  // else if (map[y][x].isKey2() || map[y][x].isLock2())
+  //   g.fillStyle = "#00ccff";
 }
 
 
