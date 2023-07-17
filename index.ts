@@ -853,17 +853,17 @@ function updateMap() {
 }
 
 function updateTile(y: number, x: number) {
-  if ((map[y][x] === new Stone() || map[y][x] === new Falling_stone())
-      && map[y + 1][x] === new Air()) {
+  if ((map[y][x].isStone() || map[y][x].isFalling_stone())
+      && map[y + 1][x].isAir()) {
     map[y + 1][x] = new Falling_stone()
     map[y][x] = new Air()
-  } else if ((map[y][x] === new Box() || map[y][x] === new Falling_stone())
+  } else if ((map[y][x].isBox() || map[y][x].isFalling_stone())
       && map[y + 1][x] === new Air()) {
     map[y + 1][x] = new Falling_stone();
     map[y][x] = new Air();
-  } else if (map[y][x] === new Falling_stone()) {
+  } else if (map[y][x].isFalling_stone()) {
     map[y][x] = new Stone();
-  } else if (map[y][x] === new Falling_stone()) {
+  } else if (map[y][x].isFalling_box()) {
     map[y][x] = new Box();
   }
 }
